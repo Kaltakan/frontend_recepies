@@ -9,11 +9,12 @@ function Login() {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
     const { setToken } = useContext(AuthContext);
+    const API_URL = process.env.REACT_APP_API_URL;
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/login', { username, password });
+            const response = await axios.post(`${API_URL}/login`, { username, password });
             setToken(response.data.access_token);
             navigate('/user-recipes');
         } catch (error) {

@@ -4,10 +4,11 @@ import { Card, ListGroup, Row, Col } from 'react-bootstrap';
 
 function PublicRecipes() {
     const [recipes, setRecipes] = useState([]);
+    const API_URL = process.env.REACT_APP_API_URL;
 
     const fetchPublicRecipes = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/recipes/public');
+            const response = await axios.get(`${API_URL}/recipes/public`);
             setRecipes(response.data);
         } catch (error) {
             console.error('Errore nel recupero delle ricette pubbliche', error);

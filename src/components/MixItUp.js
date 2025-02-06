@@ -4,10 +4,11 @@ import { Card, Button } from 'react-bootstrap';
 
 function MixItUp() {
     const [mixedRecipe, setMixedRecipe] = useState(null);
+    const API_URL = process.env.REACT_APP_API_URL;
 
     const fetchMixedRecipe = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/recipes/mix');
+            const response = await axios.get(`${API_URL}/recepies/mix`);
             setMixedRecipe(response.data);
         } catch (error) {
             console.error('Errore nel generare il mix di ricette', error);

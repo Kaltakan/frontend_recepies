@@ -7,11 +7,12 @@ function Register() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL;
 
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:5000/register', { username, password });
+            await axios.post(`${API_URL}/register`, { username, password });
             alert('Registrazione avvenuta con successo');
             navigate('/login');
         } catch (error) {

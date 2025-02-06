@@ -8,10 +8,11 @@ function UserRecipes() {
     const [description, setDescription] = useState('');
     const [isPublic, setIsPublic] = useState(false);
     const token = localStorage.getItem('token');
+    const API_URL = process.env.REACT_APP_API_URL;
 
     const fetchRecipes = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/user/recipes', {
+            const response = await axios.get(`${API_URL}/user/recipes`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setRecipes(response.data);
@@ -28,7 +29,7 @@ function UserRecipes() {
         e.preventDefault();
         try {
             await axios.post(
-                'http://localhost:5000/user/recipes',
+                `${API_URL}/user/recipes`,
                 { title, description, is_public: isPublic },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -43,7 +44,7 @@ function UserRecipes() {
 
     const handleDeleteRecipe = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/user/recipes/${id}`, {
+            await axios.delete(`${API_URL }/user/recipes/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             fetchRecipes();
@@ -55,7 +56,7 @@ function UserRecipes() {
     const handleTogglePublic = async (id, currentStatus) => {
         try {
             await axios.put(
-                `http://localhost:5000/user/recipes/${id}/toggle_public`,
+                `${API_URL }/user/recipes/${id}/toggle_public`,
                 { is_public: !currentStatus },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
