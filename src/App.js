@@ -13,7 +13,7 @@ function AppContent() {
 
   const handleLogout = () => {
     setToken(null);
-    window.location.href = '';
+    window.location.href = '/login';
   };
 
   return (
@@ -43,7 +43,7 @@ function AppContent() {
       </Navbar>
       <Container className="mt-4">
         <Routes>
-          <Route path="/login" element={!token ? <Login /> : <Navigate to="/user-recipes" />} />
+          <Route path="/login" element={ <Login /> } />
           <Route path="/register" element={!token ? <Register /> : <Navigate to="/user-recipes" />} />
           <Route path="/user-recipes" element={token ? <UserRecipes /> : <Navigate to="/login" />} />
           <Route path="/public-recipes" element={token ? <PublicRecipes /> : <Navigate to="/login" />} />
