@@ -7,10 +7,11 @@ function UserRecipes() {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [isPublic, setIsPublic] = useState(false);
-    const token = localStorage.getItem('token');
+    const [token, setToken] = useState(localStorage.getItem('token'));
     const API_URL = process.env.REACT_APP_API_URL;
 
     const fetchRecipes = async () => {
+        if (!token) return;  // Evita la richiesta se il token non è disponibile
         try {
             const response = await axios.get(`${API_URL}/user/recipes`, {
                 headers: { Authorization: `Bearer ${token}` }
@@ -22,8 +23,10 @@ function UserRecipes() {
     };
 
     useEffect(() => {
-        fetchRecipes();
-    }, []);
+        if (token) {
+            fetchRecipes();
+        }
+    }, [token]);  // Effettua il recupero ogni volta che il token cambia
 
     const handleAddRecipe = async (e) => {
         e.preventDefault();
@@ -44,7 +47,7 @@ function UserRecipes() {
 
     const handleDeleteRecipe = async (id) => {
         try {
-            await axios.delete(`${API_URL }/user/recipes/${id}`, {
+            await axios.delete(`${API_URL}/user/recipes/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             fetchRecipes();
@@ -56,7 +59,7 @@ function UserRecipes() {
     const handleTogglePublic = async (id, currentStatus) => {
         try {
             await axios.put(
-                `${API_URL }/user/recipes/${id}/toggle_public`,
+                `${API_URL}/user/recipes/${id}/toggle_public`,
                 { is_public: !currentStatus },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
