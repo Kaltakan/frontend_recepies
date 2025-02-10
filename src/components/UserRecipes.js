@@ -23,10 +23,8 @@ function UserRecipes() {
     };
 
     useEffect(() => {
-        if (token) {
-            fetchRecipes();
-        }
-    }, [token]);  // Effettua il recupero ogni volta che il token cambia
+        fetchRecipes();
+    }, []);  // Effettua il recupero ogni volta che il token cambia
 
     const handleAddRecipe = async (e) => {
         e.preventDefault();
