@@ -13,7 +13,7 @@ function AppContent() {
 
   const handleLogout = () => {
     setToken(null);
-    window.location.href = '/login';
+    navigate('/login');
   };
 
   return (
